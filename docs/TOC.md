@@ -12,6 +12,7 @@
 ### [Automatic code generation with mlgen](mlgen.md)
 ## [Performance and memory](performance-memory.md)
 ## [Executing multiple models in a chain](chaining.md)
+## [Windows Vision Skills](windows-vision-skills.md)
 ## [Release notes](release-notes.md)
 ## [API reference](api-reference.md)
 ### [Core APIs](https://docs.microsoft.com/uwp/api/windows.ai.machinelearning)
