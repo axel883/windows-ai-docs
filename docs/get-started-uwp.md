@@ -3,7 +3,7 @@ author: eliotcowley
 title: Create a Windows Machine Learning UWP application (C#)
 description: Create your first UWP application with Windows ML in this step-by-step tutorial.
 ms.author: elcowle
-ms.date: 2/20/2019
+ms.date: 3/13/2019
 ms.topic: article
 keywords: windows 10, uwp, windows machine learning, winml, windows ML
 ms.localizationpriority: medium
@@ -66,7 +66,7 @@ To run the project, click the **Start Debugging** button on the toolbar, or pres
 > If the project won't build, you might need to change the project's deployment target version. Right-click the project in the **Solution Explorer** and select **Properties**. In the **Application** tab, set the **Target version** and **Min version** to match your OS and SDK.
 
 > [!NOTE]
-> If you get a warning that the application is already installed, just select **Yes** to continue with deployment.
+> If you get a warning that the application is already installed, just select **Yes** to continue with deployment. You may need to close Visual Studio and re-open if it still doesn't work.
 
 ## 4. Download a model
 
