@@ -19,7 +19,7 @@ If you'd prefer to simply look at the code of the finished tutorial, you can fin
 ## Prerequisites
 
 - Windows 10 (Version 1809 or higher)
-- [Windows 10 SDK](https://www.microsoft.com/software-download/windowsinsiderpreviewSDK) (Build 17763 or higher)
+- [Windows 10 SDK](https://developer.microsoft.com/windows/downloads/windows-10-sdk) (Build 17763 or higher)
 - [Visual Studio 2017](https://developer.microsoft.com/windows/downloads)
 - [Windows Machine Learning Code Generator VS 2017 extension](https://marketplace.visualstudio.com/items?itemName=WinML.mlgen)
 - Some basic UWP and C# knowledge
