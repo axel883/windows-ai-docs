@@ -3,7 +3,7 @@ author: eliotcowley
 title: Create a Windows Machine Learning UWP application (C#)
 description: Create your first UWP application with Windows ML in this step-by-step tutorial.
 ms.author: elcowle
-ms.date: 3/13/2019
+ms.date: 3/14/2019
 ms.topic: article
 keywords: windows 10, uwp, windows machine learning, winml, windows ML
 ms.localizationpriority: medium
@@ -14,7 +14,7 @@ ms.custom: RS5
 
 In this tutorial, we'll build a simple Universal Windows Platform application that uses a trained machine learning model to recognize a numeric digit drawn by the user. This tutorial primarily focuses on how to load and use Windows ML in your UWP application.
 
-If you'd prefer to simply look at the code of the finished tutorial, you can find it on the [WinML GitHub repository](https://github.com/Microsoft/Windows-Machine-Learning/tree/master/Samples/MNIST/UWP/cs). It's also available in [C++/CX](https://github.com/Microsoft/Windows-Machine-Learning/tree/master/Samples/MNIST/UWP/cppcx).
+If you'd prefer to simply look at the code of the finished tutorial, you can find it on the [WinML GitHub repository](https://github.com/Microsoft/Windows-Machine-Learning/tree/master/Samples/MNIST/UWP/cs). It's also available in [C++/CX](https://github.com/Microsoft/Windows-Machine-Learning/tree/master/Samples/MNIST/UWP/cppcx). The sample should also already be downloaded on your machine at **&lt;insert path to sample here&gt;**, but the latest version will always be on GitHub.
 
 ## Prerequisites
 
@@ -24,19 +24,15 @@ If you'd prefer to simply look at the code of the finished tutorial, you can fin
 - [Windows Machine Learning Code Generator VS 2017 extension](https://marketplace.visualstudio.com/items?itemName=WinML.mlgen)
 - Some basic UWP and C# knowledge
 
-## 1. Download the sample
+## 1. Open the project in Visual Studio
 
-First, you'll need to download our [MNIST Tutorial](https://github.com/Microsoft/Windows-Machine-Learning/tree/master/Samples/MNIST/Tutorial/cs) from GitHub. We've provided a template with implemented XAML controls and events, including:
+Once you've downloaded the project from GitHub or located it on your machine, launch Visual Studio and open the **MNIST_Demo.sln** file (it should be located at **&lt;Path to repo&gt;\Windows-Machine-Learning\Samples\MNIST\Tutorial\cs**). If the solution is shown as unavailable, you'll need to right-click the project in the **Solution Explorer** and select **Reload Project**.
+
+We've provided a template with implemented XAML controls and events, including:
 
 - An [InkCanvas](https://docs.microsoft.com/uwp/api/windows.ui.xaml.controls.inkcanvas) to draw the digit.
 - [Buttons](https://docs.microsoft.com/uwp/api/windows.ui.xaml.controls.button) to interpret the digit and clear the canvas.
 - Helper routines to convert the **InkCanvas** output to a [VideoFrame](https://docs.microsoft.com/uwp/api/windows.media.videoframe).
-
-A [completed MNIST sample](https://github.com/Microsoft/Windows-Machine-Learning/tree/master/Samples/MNIST/UWP/cs) is also available to download from GitHub.
-
-## 2. Open the project in Visual Studio
-
-Launch Visual Studio, and open the MNIST sample application. (If the solution is shown as unavailable, you'll need to right-click the project in the **Solution Explorer** and select **Reload Project**.)
 
 Inside the **Solution Explorer**, the project has three main code files:
 
@@ -46,7 +42,7 @@ Inside the **Solution Explorer**, the project has three main code files:
 
 ![Visual Studio solution explorer with project files](images/get-started1.png)
 
-## 3. Build and run the project
+## 2. Build and run the project
 
 In the Visual Studio toolbar, change the **Solution Platform** to **x64** to run the project on your local machine if your device is 64-bit, or **x86** if it's 32-bit. (You can check in the Windows Settings app: **System > About > Device specifications > System type**.)
 
@@ -60,15 +56,15 @@ To run the project, click the **Start Debugging** button on the toolbar, or pres
 > [!NOTE]
 > If you get a warning that the application is already installed, just select **Yes** to continue with deployment. You may need to close Visual Studio and re-open if it still doesn't work.
 
-## 4. Download a model
+## 3. Download a model
 
 Next, let's get a machine learning model to add to our application. For this tutorial, we'll use a pre-trained MNIST model that was trained with the [Microsoft Cognitive Toolkit (CNTK)](https://docs.microsoft.com/cognitive-toolkit/) and [exported to ONNX format](https://github.com/onnx/tutorials/blob/master/tutorials/CntkOnnxExport.ipynb).
 
-If you are using the MNIST Tutorial sample from GitHub, the MNIST model has already been included in your **Assets** folder, and you will need to add it to your application as an existing item. You can also download the pre-trained model from the [ONNX Model Zoo](https://github.com/onnx/models) on GitHub.
+The MNIST model has already been included in your **Assets** folder, and you will need to add it to your application as an existing item. You can also download the pre-trained model from the [ONNX Model Zoo](https://github.com/onnx/models) on GitHub.
 
-## 5. Add the model
+## 4. Add the model
 
-After downloading the MNIST model, right click on the **Assets** folder in the **Solution Explorer**, and select **Add** > **Existing Item**. Point the file picker to the location of your ONNX model, and click **Add**.
+Right click on the **Assets** folder in the **Solution Explorer**, and select **Add** > **Existing Item**. Point the file picker to the location of your ONNX model, and click **Add**.
 
 The project should now have two new files:
 
@@ -87,13 +83,13 @@ Now, let's take a look at the newly generated code in the **mnist.cs** file. We 
 
 We'll now use these classes to load, bind, and evaluate the model in our project.
 
-## 6. Load, bind, and evaluate the model
+## 5. Load, bind, and evaluate the model
 
 For Windows ML applications, the pattern we want to follow is: Load > Bind > Evaluate.
 
-- Load the machine learning model.
-- Bind inputs and outputs to the model.
-- Evaluate the model and view results.
+1. Load the machine learning model.
+2. Bind inputs and outputs to the model.
+3. Evaluate the model and view results.
 
 We'll use the interface code generated in **mnist.cs** to load, bind, and evaluate the model in our application.
 
@@ -170,7 +166,7 @@ private void clearButton_Click(object sender, RoutedEventArgs e)
 }
 ```
 
-## 7. Launch the application
+## 6. Launch the application
 
 Once we build and launch the application (press **F5**), we'll be able to recognize a number drawn on the **InkCanvas**.
 
