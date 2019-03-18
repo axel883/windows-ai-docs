@@ -25,6 +25,8 @@ The **Microsoft.AI.Skills.SkillInterfacePreview** namespace provides a set of ba
 
 * [View samples on GitHub](https://github.com/Microsoft/WindowsVisionSkillsPreview)
 
+* [Read the documentation](TODO)
+
 ### Important concepts
 
 This API is meant to streamline the way skills work and how developers interact with them. Each skill implements the following interfaces:
