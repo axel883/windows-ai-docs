@@ -3,7 +3,7 @@ author: eliotcowley
 title: Windows Machine Learning for Desktop (C++) tutorial
 description: This tutorial shows how to build a simple Windows ML application for desktop.
 ms.author: elcowle
-ms.date: 2/14/2019
+ms.date: 3/21/2019
 ms.topic: article
 keywords: windows 10, windows ai, windows ml, winml, windows machine learning
 ms.localizationpriority: medium
@@ -22,11 +22,10 @@ We'll be using C++/WinRT to access the WinML APIs. See [C++/WinRT](https://docs.
 
 In this tutorial, you'll learn how to:
 
-> [!div class="checklist"]
-> * Load a machine learning model
-> * Load an image as a [VideoFrame](https://docs.microsoft.com/uwp/api/windows.media.videoframe)
-> * Bind the model's inputs and outputs
-> * Evaluate the model and print meaningful results
+* Load a machine learning model
+* Load an image as a [VideoFrame](https://docs.microsoft.com/uwp/api/windows.media.videoframe)
+* Bind the model's inputs and outputs
+* Evaluate the model and print meaningful results
 
 ## Prerequisites
 
@@ -35,12 +34,8 @@ In this tutorial, you'll learn how to:
 * [Windows 10, version 1809 or later](https://www.microsoft.com/software-download/windows10)
 * [Windows SDK, build 17763 or later](https://www.microsoft.com/software-download/windowsinsiderpreviewSDK
 )
-* Visual Studio extension for C++/WinRT
-    1. In Visual Studio, select **Tools > Extensions and Updates**.
-    2. Select **Online** in the left pane and search for "WinRT" using the search box on the right.
-    3. Select **C++/WinRT**, click **Download**, and close Visual Studio.
-    4. Follow the installation instructions, then re-open Visual Studio.
-* [Windows-Machine-Learning Github repo](https://github.com/Microsoft/Windows-Machine-Learning) (you can either download it as a ZIP file or clone to your machine)
+* [Visual Studio extension for C++/WinRT](https://marketplace.visualstudio.com/items?itemName=CppWinRTTeam.cppwinrt101804264)
+* [Windows-Machine-Learning Github repo](https://github.com/Microsoft/Windows-Machine-Learning) (you can either download it as a ZIP file or clone to your machine; alternatively, it should be installed already at **&lt;insert path here&gt;**)
 
 ## Create the project
 
@@ -335,5 +330,3 @@ Play around with the other samples on GitHub and extend them however you like!
 * [Windows ML samples (GitHub)](https://github.com/Microsoft/Windows-Machine-Learning/tree/master)
 * [Windows.AI.MachineLearning Namespace](https://docs.microsoft.com/uwp/api/windows.ai.machinelearning)
 * [Windows ML](index.md)
-
-[!INCLUDE [help](includes/get-help.md)]
