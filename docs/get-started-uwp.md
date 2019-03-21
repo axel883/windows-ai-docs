@@ -3,7 +3,7 @@ author: eliotcowley
 title: Create a Windows Machine Learning UWP application (C#)
 description: Create your first UWP application with Windows ML in this step-by-step tutorial.
 ms.author: elcowle
-ms.date: 3/14/2019
+ms.date: 3/21/2019
 ms.topic: article
 keywords: windows 10, uwp, windows machine learning, winml, windows ML
 ms.localizationpriority: medium
@@ -50,11 +50,9 @@ To run the project, click the **Start Debugging** button on the toolbar, or pres
 
 ![Application screenshot](images/get-started2.png)
 
-> [!NOTE]
-> If the project won't build, you might need to change the project's deployment target version. Right-click the project in the **Solution Explorer** and select **Properties**. In the **Application** tab, set the **Target version** and **Min version** to match your OS and SDK.
+> **Note**: If the project won't build, you might need to change the project's deployment target version. Right-click the project in the **Solution Explorer** and select **Properties**. In the **Application** tab, set the **Target version** and **Min version** to match your OS and SDK.
 
-> [!NOTE]
-> If you get a warning that the application is already installed, just select **Yes** to continue with deployment. You may need to close Visual Studio and re-open if it still doesn't work.
+> **Note**: If you get a warning that the application is already installed, just select **Yes** to continue with deployment. You may need to close Visual Studio and re-open if it still doesn't work.
 
 ## 3. Download a model
 
@@ -77,7 +75,7 @@ To make sure the model builds when we compile our application, right click on th
 
 Now, let's take a look at the newly generated code in the **mnist.cs** file. We have three classes:
 
-- **mnistModel** creates the machine learning model representation, creates a session on the system default device, binds the specific inputs and outputs to the model, and evaluates the model asynchronously. 
+- **mnistModel** creates the machine learning model representation, creates a session on the system default device, binds the specific inputs and outputs to the model, and evaluates the model asynchronously.
 - **mnistInput** initializes the input types that the model expects. In this case, the input expects an [ImageFeatureValue](https://docs.microsoft.com/uwp/api/windows.ai.machinelearning.imagefeaturevalue).
 - **mnistOutput** initializes the types that the model will output. In this case, the output will be a list called **Plus214_Output_0** of type [TensorFloat](https://docs.microsoft.com/uwp/api/windows.ai.machinelearning.tensorfloat).
 
@@ -112,8 +110,7 @@ private async Task LoadModelAsync()
 }
 ```
 
-> [!NOTE]
-> If you get red underlines under **IRandomAccessStreamReference**, you need to include its namespace. Put your cursor over it, press **Ctrl + .** and select **using Windows.Storage.Streams** from the drop-down menu.
+> **Note**: If you get red underlines under **IRandomAccessStreamReference**, you need to include its namespace. Put your cursor over it, press **Ctrl + .** and select **using Windows.Storage.Streams** from the drop-down menu.
 
 Next, we want to bind our inputs and outputs to the model. The generated code also includes **mnistInput** and **mnistOutput** wrapper classes. The **mnistInput** class represents the model's expected inputs, and the **mnistOutput** class represents the model's expected outputs.
 
