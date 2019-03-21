@@ -53,6 +53,7 @@ First, we will create the project in Visual Studio:
 Next, we'll load the ONNX model into our program using [LearningModel.LoadFromFilePath](https://docs.microsoft.com/uwp/api/windows.ai.machinelearning.learningmodel.loadfromfilepath):
 
 1. In **pch.h** (in the **Header Files** folder), add the following `include` statements (these give us access to all the APIs that we'll need):
+
     ```cpp
     #include <winrt/Windows.AI.MachineLearning.h>
     #include <winrt/Windows.Foundation.Collections.h>
@@ -67,6 +68,7 @@ Next, we'll load the ONNX model into our program using [LearningModel.LoadFromFi
     ```
 
 2. In **main.cpp** (in the **Source Files** folder), add the following `using` statements:
+
     ```cpp
     using namespace Windows::AI::MachineLearning;
     using namespace Windows::Foundation::Collections;
@@ -78,6 +80,7 @@ Next, we'll load the ONNX model into our program using [LearningModel.LoadFromFi
     ```
 
 3. Add the following variable declarations after the `using` statements:
+
     ```cpp
     // Global variables
     hstring modelPath;
@@ -93,6 +96,7 @@ Next, we'll load the ONNX model into our program using [LearningModel.LoadFromFi
     ```
 
 4. Add the following forward declarations after your global variables:
+
     ```cpp
     // Forward declarations
     void LoadModel();
@@ -106,24 +110,27 @@ Next, we'll load the ONNX model into our program using [LearningModel.LoadFromFi
 5. In **main.cpp**, remove the "Hello world" code (everything in the `main` function after `init_apartment`).
 6. Find the **SqueezeNet.onnx** file in your local clone of the **Windows-Machine-Learning** repo. It should be located in **\Windows-Machine-Learning\SharedContent\models**.
 7. Copy the file path and assign it to your `modelPath` variable where we defined it at the top. Remember to prefix the string with an `L` to make it a wide character string so that it works properly with `hstring`, and to escape any backslashes (`\`) with an extra backslash. For example:
+
     ```cpp
     hstring modelPath = L"C:\\Repos\\Windows-Machine-Learning\\SharedContent\\models\\SqueezeNet.onnx";
     ```
 
 8. First, we'll implement the `LoadModel` method. Add the following method after the `main` method. This method loads the model and outputs how long it took:
+
     ```cpp
     void LoadModel()
     {
-	    // load the model
-	    printf("Loading modelfile '%ws' on the '%s' device\n", modelPath.c_str(), deviceName.c_str());
-	    DWORD ticks = GetTickCount();
-	    model = LearningModel::LoadFromFilePath(modelPath);
-	    ticks = GetTickCount() - ticks;
-	    printf("model file loaded in %d ticks\n", ticks);
+        // load the model
+        printf("Loading model file '%ws' on the '%s' device\n", modelPath.c_str(), deviceName.c_str());
+        DWORD ticks = GetTickCount();
+        model = LearningModel::LoadFromFilePath(modelPath);
+        ticks = GetTickCount() - ticks;
+        printf("model file loaded in %d ticks\n", ticks);
     }
     ```
 
 9. Finally, call this method from the `main` method:
+
     ```cpp
     LoadModel();
     ```
@@ -135,6 +142,7 @@ Next, we'll load the ONNX model into our program using [LearningModel.LoadFromFi
 Next, we'll load the image file into our program:
 
 1. Add the following method. This method will load the image from the given path and create a [VideoFrame](https://docs.microsoft.com/uwp/api/windows.media.videoframe) from it:
+
     ```cpp
     VideoFrame LoadImageFile(hstring filePath)
     {
@@ -152,7 +160,7 @@ Next, we'll load the image file into our program:
             BitmapDecoder decoder = BitmapDecoder::CreateAsync(stream).get();
             // get the bitmap
             SoftwareBitmap softwareBitmap = decoder.GetSoftwareBitmapAsync().get();
-            // load a videoframe from it
+            // load a video frame from it
             inputImage = VideoFrame::CreateWithSoftwareBitmap(softwareBitmap);
         }
         catch (...)
@@ -169,12 +177,14 @@ Next, we'll load the image file into our program:
     ```
 
 2. Add a call to this method in the `main` method:
+
     ```cpp
     imageFrame = LoadImageFile(imagePath);
     ```
 
 3. Find the **media** folder in your local clone of the **Windows-Machine-Learning** repo. It should be located at **\Windows-Machine-Learning\SharedContent\media**.
 4. Choose one of the images in that folder, and assign its file path to the `imagePath` variable where we defined it at the top. Remember to prefix it with an `L` to make it a wide character string, and to escape any backslashes with another backslash. For example:
+
     ```cpp
     hstring imagePath = L"C:\\Repos\\Windows-Machine-Learning\\SharedContent\\media\\kitten_224.png";
     ```
@@ -186,6 +196,7 @@ Next, we'll load the image file into our program:
 Next, we'll create a session based on the model and bind the input and output from the session using [LearningModelBinding.Bind](https://docs.microsoft.com/uwp/api/windows.ai.machinelearning.learningmodelbinding.bind). For more information on binding, see [Bind a model](bind-a-model.md).
 
 1. Implement the `BindModel` method. This creates a session based on the model and device, and a binding based on that session. We then bind the inputs and outputs to variables we've created using their names. We happen to know ahead of time that the input feature is named "data_0" and the output feature is named "softmaxout_1". You can see these properties for any model by opening them in [Netron](https://lutzroeder.github.io/Netron/), an online model visualization tool.
+
     ```cpp
     void BindModel()
     {
@@ -195,7 +206,7 @@ Next, we'll create a session based on the model and bind the input and output fr
         // now create a session and binding
         session = LearningModelSession{ model, LearningModelDevice(deviceKind) };
         binding = LearningModelBinding{ session };
-        // bind the intput image
+        // bind the input image
         binding.Bind(L"data_0", ImageFeatureValue::CreateFromVideoFrame(imageFrame));
         // bind the output
         vector<int64_t> shape({ 1, 1000, 1, 1 });
@@ -207,6 +218,7 @@ Next, we'll create a session based on the model and bind the input and output fr
     ```
 
 2. Add a call to `BindModel` from the `main` method:
+
     ```cpp
     BindModel();
     ```
@@ -218,6 +230,7 @@ Next, we'll create a session based on the model and bind the input and output fr
 We're now on the last step in the diagram at the beginning of this tutorial, **Evaluate**. We'll evaluate the model using [LearningModelSession.Evaluate](https://docs.microsoft.com/uwp/api/windows.ai.machinelearning.learningmodelsession.evaluate):
 
 1. Implement the `EvaluateModel` method. This method takes our session and evaluates it using our binding and a correlation ID. The correlation ID is something we could possibly use later to match a particular evaluation call to the output results. Again, we know ahead of time that the output's name is "softmaxout_1".
+
     ```cpp
     void EvaluateModel()
     {
@@ -238,6 +251,7 @@ We're now on the last step in the diagram at the beginning of this tutorial, **E
     ```
 
 2. Now let's implement `PrintResults`. This method gets the top three probabilities for what object could be in the image, and prints them:
+
     ```cpp
     void PrintResults(IVectorView<float> results)
     {
@@ -269,6 +283,7 @@ We're now on the last step in the diagram at the beginning of this tutorial, **E
     ```
 
 3. We also need to implement `LoadLabels`. This method opens the labels file that contains all of the different objects that the model can recognize, and parses it:
+
     ```cpp
     void LoadLabels()
     {
@@ -296,16 +311,19 @@ We're now on the last step in the diagram at the beginning of this tutorial, **E
 
 4. Locate the **Labels.txt** file in your local clone of the **Windows-Machine-Learning** repo. It should be in **\Windows-Machine-Learning\Samples\SqueezeNetObjectDetection\Desktop\cpp**.
 5. Assign this file path to the `labelsFilePath` variable where we defined it at the top. Make sure to escape any backslashes with another backslash. For example:
+
     ```cpp
     string labelsFilePath = "C:\\Repos\\Windows-Machine-Learning\\Samples\\SqueezeNetObjectDetection\\Desktop\\cpp\\Labels.txt";
     ```
 
 6. Add a call to `EvaluateModel` in the `main` method:
+
     ```cpp
     EvaluateModel();
     ```
-    
+
 7. Run the program without debugging. It should now correctly recognize what's in the image! Here is an example of what it might output:
+
     ```sh
     Loading modelfile 'C:\Repos\Windows-Machine-Learning\SharedContent\models\SqueezeNet.onnx' on the 'default' device
     model file loaded in 250 ticks
@@ -321,7 +339,7 @@ We're now on the last step in the diagram at the beginning of this tutorial, **E
 
 ## Next steps
 
-Hooray, you've got object detection working in a C++ desktop application! Next, you can try using command line arguments to input the model and image files rather than hardcoding them, similar to what the sample on GitHub does. You could also try running the evaluation on a different device, like the GPU, to see how the performance differs.
+Hooray, you've got object detection working in a C++ desktop application! Next, you can try using command line arguments to input the model and image files rather than hard-coding them, similar to what the sample on GitHub does. You could also try running the evaluation on a different device, like the GPU, to see how the performance differs.
 
 Play around with the other samples on GitHub and extend them however you like!
 

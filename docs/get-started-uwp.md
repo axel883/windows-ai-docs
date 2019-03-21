@@ -170,5 +170,3 @@ Once we build and launch the application (press **F5**), we'll be able to recogn
 ![complete application](images/get-started4.png)
 
 That's it - you've made your first Windows ML application! For more samples that demonstrate how to use Windows ML, check out our [Windows-Machine-Learning](https://github.com/Microsoft/Windows-Machine-Learning) repo on GitHub.
-
-[!INCLUDE [help](includes/get-help.md)]
